@@ -66,6 +66,11 @@ const NoteApp = () => {
 };
 
 const Note = ({ note, removeNote }) => {
+  useEffect(() => {
+    return () => {
+      console.log("sfsdfsd");
+    };
+  }, [note]);
   return (
     <div key={note.id}>
       <h5>
