@@ -35,6 +35,13 @@ const NoteApp = () => {
     setNoets(NoteList);
   }, []);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    setNoets([...notes, { id: notes.length + 1, title, body }]);
+    setTitle("");
+    setBody("");
+  };
+
   return (
     <>
       <h2>Note App</h2>
@@ -48,7 +55,7 @@ const NoteApp = () => {
           );
         })}
       <h3>Add Note</h3>
-      <form>
+      <form onSubmit={handleSubmit}>
         <p>
           Title: <input type="text" value={title} onChange={handleSetTitle} />
         </p>
