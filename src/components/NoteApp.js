@@ -42,18 +42,15 @@ const NoteApp = () => {
     setBody("");
   };
 
+  const removeNote = id => {
+    setNoets(notes.filter(note => note.id !== id));
+  };
+
   return (
     <>
       <h2>Note App</h2>
       {notes.length > 0 &&
-        notes.map(note => {
-          return (
-            <div key={note.id}>
-              <h5>{note.title}</h5>
-              <p>{note.body}</p>
-            </div>
-          );
-        })}
+        notes.map(note => <Note note={note} removeNote={removeNote} />)}
       <h3>Add Note</h3>
       <form onSubmit={handleSubmit}>
         <p>
@@ -65,6 +62,17 @@ const NoteApp = () => {
         <button type="submit">Add</button>
       </form>
     </>
+  );
+};
+
+const Note = ({ note, removeNote }) => {
+  return (
+    <div key={note.id}>
+      <h5>
+        {note.title} <button onClick={() => removeNote(note.id)}>X</button>
+      </h5>
+      <p>{note.body}</p>
+    </div>
   );
 };
 
