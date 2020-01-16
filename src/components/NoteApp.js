@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const NoteList = [
   {
@@ -19,24 +19,41 @@ const NoteList = [
 ];
 
 const NoteApp = () => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [notes, setNoets] = useState([]);
+
+  const handleSetTitle = e => {
+    setTitle(e.target.value);
+  };
+
+  const handleSetbody = e => {
+    setBody(e.target.value);
+  };
+
+  useEffect(() => {
+    setNoets(NoteList);
+  }, []);
+
   return (
     <>
       <h2>Note App</h2>
-      {NoteList.map(note => {
-        return (
-          <div key={note.id}>
-            <h5>{note.title}</h5>
-            <p>{note.body}</p>
-          </div>
-        );
-      })}
+      {notes.length > 0 &&
+        notes.map(note => {
+          return (
+            <div key={note.id}>
+              <h5>{note.title}</h5>
+              <p>{note.body}</p>
+            </div>
+          );
+        })}
       <h3>Add Note</h3>
       <form>
         <p>
-          Title: <input type="text" />
+          Title: <input type="text" value={title} onChange={handleSetTitle} />
         </p>
         <p>
-          Desc: <textarea />
+          Desc: <textarea value={body} onChange={handleSetbody} />
         </p>
         <button type="submit">Add</button>
       </form>
