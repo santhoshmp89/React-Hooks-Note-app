@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Note from "./Note";
+import AddForm from "./AddForm";
 
 const NoteList = [
   {
@@ -24,24 +25,9 @@ const NoteApp = () => {
   const [body, setBody] = useState("");
   const [notes, setNoets] = useState([]);
 
-  const handleSetTitle = e => {
-    setTitle(e.target.value);
-  };
-
-  const handleSetbody = e => {
-    setBody(e.target.value);
-  };
-
   useEffect(() => {
     setNoets(NoteList);
   }, []);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    setNoets([...notes, { id: notes.length + 1, title, body }]);
-    setTitle("");
-    setBody("");
-  };
 
   const removeNote = id => {
     setNoets(notes.filter(note => note.id !== id));
@@ -55,15 +41,7 @@ const NoteApp = () => {
           <Note key={note.id} note={note} removeNote={removeNote} />
         ))}
       <h3>Add Note</h3>
-      <form onSubmit={handleSubmit}>
-        <p>
-          Title: <input type="text" value={title} onChange={handleSetTitle} />
-        </p>
-        <p>
-          Desc: <textarea value={body} onChange={handleSetbody} />
-        </p>
-        <button type="submit">Add</button>
-      </form>
+      <AddForm notes={notes} setNoets={setNoets} />
     </>
   );
 };

@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 
 const Note = ({ note, removeNote }) => {
   useEffect(() => {
+    console.log("note changed");
     return () => {
-      console.log("sfsdfsd");
+      console.log("Note unmount");
     };
   }, [note]);
   return (
